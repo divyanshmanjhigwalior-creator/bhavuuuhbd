@@ -2,194 +2,277 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Dearest Bhavuuuuu 💖</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Bhavna 💖</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@200;400&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --romantic-pink: #ff85a1; --gold: #f9d976; --dark-velvet: #0a0a0a; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--dark-velvet); color: #fff; font-family: 'Montserrat', sans-serif; overflow: hidden; height: 100vh; }
+        :root {
+            --pink: #ff4d6d;
+            --soft-pink: #ffb7c5;
+            --gold: #d4af37;
+            --bg-dark: #050505;
+        }
 
-        /* Start Screen */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body, html {
+            width: 100%; height: 100%;
+            background: var(--bg-dark);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        /* --- Welcome Screen --- */
         #loader {
-            position: fixed; inset: 0; background: #000; z-index: 1000;
+            position: fixed; inset: 0; background: var(--bg-dark); z-index: 2000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 1.5s ease;
         }
-        #start-btn {
-            padding: 18px 45px; border-radius: 50px; border: 1px solid var(--romantic-pink);
-            background: transparent; color: var(--romantic-pink); font-size: 1.1rem;
-            cursor: pointer; transition: 0.5s; font-family: 'Montserrat', sans-serif;
-            letter-spacing: 4px; text-transform: uppercase;
-        }
-        #start-btn:hover { background: var(--romantic-pink); color: #000; box-shadow: 0 0 30px var(--romantic-pink); }
 
+        .heart-loader {
+            font-size: 50px; color: var(--pink); animation: pulse 1.5s infinite;
+            margin-bottom: 20px;
+        }
+
+        #start-btn {
+            padding: 15px 35px; border-radius: 30px; border: 1px solid var(--gold);
+            background: transparent; color: var(--gold); font-size: 14px;
+            letter-spacing: 3px; cursor: pointer; text-transform: uppercase;
+        }
+
+        /* --- Background Visuals --- */
         canvas { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
         
-        .content {
-            position: relative; z-index: 10; height: 100vh; display: flex;
-            flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; opacity: 0; transition: 2.5s ease; padding: 30px;
+        .overlay-gradient {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(255, 77, 109, 0.1) 0%, transparent 85%);
+            z-index: 2; pointer-events: none;
         }
 
-        .bhavna-name { 
-            font-family: 'Great Vibes', cursive; font-size: clamp(5rem, 15vw, 8rem); 
-            color: var(--romantic-pink); text-shadow: 0 0 30px rgba(255,133,161,0.4); 
-            margin-bottom: -10px;
+        /* --- Main Content --- */
+        .main-ui {
+            position: relative; z-index: 10; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; text-align: center; opacity: 0; transition: 2s ease;
         }
-        
+
+        .hb-day {
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: 1.2rem; letter-spacing: 5px; color: var(--gold);
+            margin-bottom: 5px; text-transform: uppercase;
+        }
+
+        .name-title {
+            font-family: 'Great Vibes', cursive; font-size: clamp(4.5rem, 18vw, 7.5rem);
+            color: var(--soft-pink); text-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
+            margin-bottom: 15px;
+        }
+
         .romantic-para {
-            max-width: 650px; font-size: 1.15rem; line-height: 1.9; color: #f0f0f0;
-            margin: 25px 0; font-style: italic; font-weight: 200;
-            letter-spacing: 0.5px;
+            max-width: 340px; font-size: 0.95rem; line-height: 1.8;
+            font-weight: 200; font-style: italic; color: #ddd;
+            background: rgba(255, 255, 255, 0.03); padding: 20px;
+            border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px); margin-bottom: 30px;
         }
 
-        /* Interactive Cake Area */
-        .cake-section { position: relative; margin-top: 40px; cursor: pointer; }
-        .cake-emoji { font-size: 90px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
+        /* --- Interactive Cake --- */
+        .cake-zone { position: relative; width: 120px; height: 120px; cursor: pointer; }
+        .cake-icon { font-size: 80px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
         
+        .candle-stick {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 5px; height: 25px; background: #eee; border-radius: 2px;
+        }
+
         .flame {
-            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-            width: 16px; height: 28px; background: radial-gradient(#fff, #ffcc00, #ff6600);
+            position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            width: 15px; height: 28px; background: radial-gradient(#fff, #ffcc00, #ff4d00);
             border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 25px #ffcc00, 0 0 45px #ff4400;
+            box-shadow: 0 0 20px #ffcc00, 0 0 40px #ff4d00;
             animation: flicker 0.1s infinite alternate;
         }
-        @keyframes flicker { 
-            0% { transform: translateX(-50%) scale(1) rotate(-1deg); opacity: 0.9; } 
-            100% { transform: translateX(-50%) scale(1.15) rotate(1deg); opacity: 1; } 
-        }
-        
-        #wish-message { 
-            display: none; font-family: 'Dancing Script'; font-size: 3.5rem; 
-            color: var(--gold); margin-top: 25px; text-shadow: 0 0 15px var(--gold);
-            animation: slideUp 1.5s ease-out;
-        }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        #music-note { position: fixed; bottom: 40px; right: 40px; font-size: 1.5rem; opacity: 0.4; z-index: 100; }
+        /* --- Butterflies --- */
+        .butterfly {
+            position: absolute; font-size: 25px; pointer-events: none; z-index: 5;
+            animation: fly 10s linear infinite;
+        }
+
+        @keyframes fly {
+            0% { transform: translate(-10vw, 100vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(110vw, -10vh) rotate(45deg); opacity: 0; }
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
+            100% { transform: translateX(-50%) scale(1.1) rotate(1deg); }
+        }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+        #wish-text {
+            display: none; font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem; color: var(--gold); margin-top: 20px;
+            animation: zoomIn 1s ease forwards;
+        }
+
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+
+        .music-btn {
+            position: fixed; bottom: 25px; right: 25px; z-index: 100;
+            font-size: 24px; opacity: 0.5;
+        }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <button id="start-btn" onclick="igniteMagic()">Enter Your Surprise, Bhavna</button>
+        <div class="heart-loader">❤️</div>
+        <button id="start-btn" onclick="startSurprise()">Open Your Gift</button>
     </div>
 
-    <canvas id="visuals"></canvas>
+    <canvas id="canvas"></canvas>
+    <div class="overlay-gradient"></div>
 
-    <div class="content" id="main-content">
-        <h1 class="bhavna-name">Happy birthday Bhavuuuuuu</h1>
+    <div class="main-ui" id="mainUI">
+        <p class="hb-day">Happy Birthday</p>
+        <h1 class="name-title">Bhavna</h1>
         
         <div class="romantic-para">
-            "Dearest Bhavna, you are the most beautiful piece of art I have ever witnessed. In the gallery of my life, you are the masterpiece that takes my breath away every single day. You aren't just my girlfriend; you are my peace, my home, and my favorite mystery. On this special day, I want you to know that as long as I breathe, my heart will only beat for you. Happy Birthday to the girl who changed my world forever.Loveyousomuchhhhhhhhhhh💖✨
+            "Bhavna, you are the most beautiful star in my galaxy. In a world full of noise, you are my sweetest melody. I am so lucky to have you by my side. May your day be as radiant as your smile. I love you forever." 💖
         </div>
 
-        <div class="cake-section">
-            <div class="flame" id="flame-element"></div>
-            <div class="cake-emoji">🎂</div>
+        <div class="cake-zone" id="cakeTrigger">
+            <div class="flame" id="flame"></div>
+            <div class="candle-stick"></div>
+            <div class="cake-icon">🎂</div>
         </div>
-        <div id="wish-message">Make a Wish, My Love! 💌</div>
+        
+        <div id="wish-text">Make a Wish, My Love! ✨</div>
     </div>
 
-    <audio id="romantic-audio" loop><source src="aud.mp3" type="audio/mpeg"></audio>
-    <div id="music-note">🎶</div>
+    <audio id="audio" loop><source src="aud.mp3" type="audio/mpeg"></audio>
+    <div class="music-btn">🎶</div>
 
     <script>
-        const canvas = document.getElementById('visuals');
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let magicStarted = false;
-        let isBlown = false;
+        let blown = false;
+        let w, h;
 
-        function igniteMagic() {
+        function setSize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', setSize);
+        setSize();
+
+        function startSurprise() {
             document.getElementById('loader').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('main-content').style.opacity = '1';
-                document.getElementById('romantic-audio').play();
+                document.getElementById('mainUI').style.opacity = '1';
+                document.getElementById('audio').play().catch(() => {});
                 initParticles();
+                animate();
                 startMic();
-                magicStarted = true;
-            }, 1200);
+                createButterflies();
+            }, 1000);
         }
 
-        class Heart {
-            constructor(isExplosion = false) {
-                this.isExplosion = isExplosion;
+        class Particle {
+            constructor(isBlast = false) {
+                this.isBlast = isBlast;
                 this.reset();
             }
             reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 500;
-                this.size = Math.random() * (this.isExplosion ? 25 : 12) + 5;
-                this.speed = Math.random() * (this.isExplosion ? 6 : 1.5) + 0.5;
-                this.opacity = Math.random() * 0.7 + 0.2;
-                this.color = Math.random() > 0.3 ? '#ff85a1' : '#ffffff';
+                this.x = Math.random() * w;
+                this.y = h + Math.random() * 200;
+                this.size = Math.random() * (this.isBlast ? 20 : 5) + 2;
+                this.speed = Math.random() * (this.isBlast ? 5 : 1) + 0.5;
+                this.type = Math.random() > 0.5 ? 'heart' : 'star';
+                this.opacity = Math.random() * 0.7 + 0.1;
             }
             update() {
                 this.y -= this.speed;
-                if (this.y < -50) this.reset();
+                if (this.y < -50) {
+                    if (this.isBlast) this.y = h + 10;
+                    else this.reset();
+                }
             }
             draw() {
                 ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.font = `${this.size}px Arial`;
-                ctx.fillText('❤️', this.x, this.y);
+                ctx.fillStyle = this.type === 'heart' ? '#ff4d6d' : '#ffffff';
+                if(this.type === 'heart') {
+                    ctx.font = `${this.size}px Arial`;
+                    ctx.fillText('❤️', this.x, this.y);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size/3, 0, Math.PI*2);
+                    ctx.fill();
+                }
             }
         }
 
         function initParticles() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            for(let i=0; i<60; i++) particles.push(new Heart(false));
-            
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                requestAnimationFrame(animate);
-            }
-            animate();
+            for(let i=0; i<70; i++) particles.push(new Particle(false));
+        }
+
+        function createButterflies() {
+            setInterval(() => {
+                const b = document.createElement('div');
+                b.className = 'butterfly';
+                b.innerHTML = '🦋';
+                b.style.left = Math.random() * 100 + "vw";
+                b.style.animationDuration = (Math.random() * 5 + 8) + "s";
+                document.body.appendChild(b);
+                setTimeout(() => b.remove(), 12000);
+            }, 3000);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
         }
 
         async function startMic() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const analyzer = audioContext.createAnalyser();
-                const source = audioContext.createMediaStreamSource(stream);
+                const audioCtx = new AudioContext();
+                const analyzer = audioCtx.createAnalyser();
+                const source = audioCtx.createMediaStreamSource(stream);
                 analyzer.fftSize = 256;
                 source.connect(analyzer);
-                const dataArray = new Uint8Array(analyzer.frequencyBinCount);
+                const data = new Uint8Array(analyzer.frequencyBinCount);
 
-                function detectBlow() {
-                    if (isBlown) return;
-                    analyzer.getByteFrequencyData(dataArray);
-                    let sum = dataArray.reduce((a, b) => a + b);
-                    let average = sum / dataArray.length;
+                function check() {
+                    if (blown) return;
+                    analyzer.getByteFrequencyData(data);
+                    let vol = data.reduce((a, b) => a + b) / data.length;
+                    if (vol > 55) extinguish();
+                    requestAnimationFrame(check);
+                }
+                check();
+            } catch (e) {
+                // Click backup for iOS/Mobile if Mic is blocked
+                document.getElementById('cakeTrigger').onclick = extinguish;
+            }
+        }
 
-                    // High sensitivity for blowing (adjusted to 50)
-                    if (average > 50) {
-                        isBlown = true;
-                        document.getElementById('flame-element').style.display = 'none';
-                        document.getElementById('wish-message').style.display = 'block';
-                        // Explosion of 250+ hearts
-                        for(let i=0; i<250; i++) particles.push(new Heart(true));
-                    }
-                    requestAnimationFrame(detectBlow);
-                }
-                detectBlow();
-            } catch (err) {
-                console.log("Mic blocked by browser. Ask her to click the cake instead!");
-                // Backup: Click the cake to blow candle
-                document.querySelector('.cake-section').onclick = () => {
-                    if(!isBlown) {
-                        isBlown = true;
-                        document.getElementById('flame-element').style.display = 'none';
-                        document.getElementById('wish-message').style.display = 'block';
-                        for(let i=0; i<250; i++) particles.push(new Heart(true));
-                    }
-                }
+        function extinguish() {
+            if (blown) return;
+            blown = true;
+            document.getElementById('flame').style.display = 'none';
+            document.getElementById('wish-text').style.display = 'block';
+            for(let i=0; i<200; i++) {
+                setTimeout(() => particles.push(new Particle(true)), i * 2);
             }
         }
     </script>
