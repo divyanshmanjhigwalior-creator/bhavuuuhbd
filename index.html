@@ -9,8 +9,8 @@
     
     <style>
         :root {
-            --pink: #ff4d6d;
-            --soft-pink: #ffb7c5;
+            --soft-pink: #ffb7c5; 
+            --deep-pink: #ff85a1;
             --gold: #d4af37;
             --bg-dark: #050505;
         }
@@ -25,17 +25,12 @@
             overflow: hidden;
         }
 
-        /* --- Welcome Screen --- */
         #loader {
             position: fixed; inset: 0; background: var(--bg-dark); z-index: 2000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: 1.5s ease;
         }
 
-        .heart-loader {
-            font-size: 50px; color: var(--pink); animation: pulse 1.5s infinite;
-            margin-bottom: 20px;
-        }
+        .heart-loader { font-size: 50px; color: var(--soft-pink); animation: pulse 1.5s infinite; margin-bottom: 20px; }
 
         #start-btn {
             padding: 15px 35px; border-radius: 30px; border: 1px solid var(--gold);
@@ -43,16 +38,14 @@
             letter-spacing: 3px; cursor: pointer; text-transform: uppercase;
         }
 
-        /* --- Background Canvas --- */
         canvas { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
         
         .overlay-gradient {
             position: absolute; inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 77, 109, 0.1) 0%, transparent 90%);
+            background: radial-gradient(circle at center, rgba(255, 183, 197, 0.1) 0%, transparent 90%);
             z-index: 2; pointer-events: none;
         }
 
-        /* --- Main UI --- */
         .main-ui {
             position: relative; z-index: 10; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -61,13 +54,13 @@
 
         .hb-day {
             font-family: 'Playfair Display', serif; font-style: italic;
-            font-size: 1.1rem; letter-spacing: 4px; color: var(--gold);
+            font-size: 1rem; letter-spacing: 4px; color: var(--gold);
             margin-bottom: 5px; text-transform: uppercase;
         }
 
         .name-title {
             font-family: 'Great Vibes', cursive; font-size: clamp(4rem, 16vw, 7rem);
-            color: var(--soft-pink); text-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
+            color: var(--soft-pink); text-shadow: 0 0 25px rgba(255, 183, 197, 0.4);
             margin-bottom: 10px;
         }
 
@@ -79,7 +72,6 @@
             backdrop-filter: blur(8px); margin-bottom: 25px;
         }
 
-        /* --- Cake & Candle --- */
         .cake-zone { position: relative; width: 100px; height: 100px; margin-bottom: 20px; }
         .cake-icon { font-size: 75px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
         
@@ -96,45 +88,24 @@
             animation: flicker 0.1s infinite alternate;
         }
 
-        /* --- Blow Button --- */
         #blow-btn {
             padding: 12px 25px; border-radius: 20px; border: none;
-            background: var(--pink); color: white; font-weight: bold;
+            background: var(--soft-pink); color: #000; font-weight: bold;
             font-size: 0.9rem; cursor: pointer; letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-            transition: 0.3s;
-        }
-        #blow-btn:active { transform: scale(0.9); background: #e63958; }
-
-        /* --- Butterflies & Particles --- */
-        .butterfly {
-            position: absolute; font-size: 22px; pointer-events: none; z-index: 5;
-            animation: fly 12s linear infinite;
+            box-shadow: 0 5px 15px rgba(255, 183, 197, 0.3);
+            transition: 0.3s; z-index: 20;
         }
 
-        @keyframes fly {
-            0% { transform: translate(-15vw, 100vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translate(115vw, -15vh) rotate(45deg); opacity: 0; }
-        }
-
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
-            100% { transform: translateX(-50%) scale(1.15) rotate(1deg); }
-        }
-
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1) rotate(-1deg); } 100% { transform: translateX(-50%) scale(1.15) rotate(1deg); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
         #wish-text {
             display: none; font-family: 'Great Vibes', cursive;
             font-size: 2.5rem; color: var(--gold); margin-top: 15px;
-            text-shadow: 0 0 10px var(--gold);
             animation: zoomIn 1s ease forwards;
         }
 
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
-
-        .music-indicator { position: fixed; bottom: 20px; right: 20px; font-size: 1.5rem; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -152,122 +123,4 @@
         <h1 class="name-title">Bhavna</h1>
         
         <div class="romantic-para">
-            "Bhavna, in this galaxy of billions, my eyes will always search for you. You are my light, my peace, and my most beautiful reality. I promise to cherish you every single day. Happy Birthday, My Queen." 💖✨
-        </div>
-
-        <div class="cake-zone">
-            <div class="flame" id="flame"></div>
-            <div class="candle-stick"></div>
-            <div class="cake-icon">🎂</div>
-        </div>
-        
-        <button id="blow-btn" onclick="triggerBlast()">Blow The Candle 🌬️</button>
-        <div id="wish-text">I Love You Forever! ❤️</div>
-    </div>
-
-    <audio id="audio" loop><source src="aud.mp3" type="audio/mpeg"></audio>
-    <div class="music-indicator">🎶</div>
-
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let blown = false;
-        let w, h;
-
-        function setSize() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', setSize);
-        setSize();
-
-        function startSurprise() {
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('mainUI').style.opacity = '1';
-                document.getElementById('audio').play().catch(() => {});
-                initParticles();
-                animate();
-                createButterflies();
-            }, 1000);
-        }
-
-        class Particle {
-            constructor(isBlast = false) {
-                this.isBlast = isBlast;
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * w;
-                this.y = h + Math.random() * (this.isBlast ? 800 : 200);
-                this.size = Math.random() * (this.isBlast ? 22 : 6) + 3;
-                this.speed = Math.random() * (this.isBlast ? 6 : 1.5) + 0.5;
-                this.type = Math.random() > 0.4 ? 'heart' : 'star';
-                this.opacity = Math.random() * 0.8 + 0.1;
-                this.color = this.type === 'heart' ? (this.isBlast ? '#ff003c' : '#ff4d6d') : '#ffffff';
-            }
-            update() {
-                this.y -= this.speed;
-                if (this.y < -50) {
-                    if (this.isBlast) {
-                        this.y = h + Math.random() * 200; // Keep the blast going
-                    } else {
-                        this.reset();
-                    }
-                }
-            }
-            draw() {
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                if(this.type === 'heart') {
-                    ctx.font = `${this.size}px Arial`;
-                    ctx.fillText('❤️', this.x, this.y);
-                } else {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size/3, 0, Math.PI*2);
-                    ctx.fill();
-                }
-            }
-        }
-
-        function initParticles() {
-            for(let i=0; i<80; i++) particles.push(new Particle(false));
-        }
-
-        function triggerBlast() {
-            if (blown) return;
-            blown = true;
-            document.getElementById('flame').style.display = 'none';
-            document.getElementById('blow-btn').style.display = 'none';
-            document.getElementById('wish-text').style.display = 'block';
-            
-            // Mega Blast of 800 Hearts
-            for(let i=0; i<800; i++) {
-                setTimeout(() => {
-                    particles.push(new Particle(true));
-                }, i * 1.5);
-            }
-        }
-
-        function createButterflies() {
-            setInterval(() => {
-                const b = document.createElement('div');
-                b.className = 'butterfly';
-                b.innerHTML = '🦋';
-                b.style.left = Math.random() * 100 + "vw";
-                b.style.animationDuration = (Math.random() * 5 + 10) + "s";
-                document.body.appendChild(b);
-                setTimeout(() => b.remove(), 12000);
-            }, 3500);
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, w, h);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-    </script>
-</body>
-</html>
+            "Bhavna, in this galaxy of billions, my eyes will always search for you. You are my light, my peace
