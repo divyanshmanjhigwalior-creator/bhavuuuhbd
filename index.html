@@ -43,16 +43,16 @@
             letter-spacing: 3px; cursor: pointer; text-transform: uppercase;
         }
 
-        /* --- Background Visuals --- */
+        /* --- Background Canvas --- */
         canvas { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
         
         .overlay-gradient {
             position: absolute; inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 77, 109, 0.1) 0%, transparent 85%);
+            background: radial-gradient(circle at center, rgba(255, 77, 109, 0.1) 0%, transparent 90%);
             z-index: 2; pointer-events: none;
         }
 
-        /* --- Main Content --- */
+        /* --- Main UI --- */
         .main-ui {
             position: relative; z-index: 10; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -61,72 +61,80 @@
 
         .hb-day {
             font-family: 'Playfair Display', serif; font-style: italic;
-            font-size: 1.2rem; letter-spacing: 5px; color: var(--gold);
+            font-size: 1.1rem; letter-spacing: 4px; color: var(--gold);
             margin-bottom: 5px; text-transform: uppercase;
         }
 
         .name-title {
-            font-family: 'Great Vibes', cursive; font-size: clamp(4.5rem, 18vw, 7.5rem);
+            font-family: 'Great Vibes', cursive; font-size: clamp(4rem, 16vw, 7rem);
             color: var(--soft-pink); text-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .romantic-para {
-            max-width: 340px; font-size: 0.95rem; line-height: 1.8;
+            max-width: 320px; font-size: 0.9rem; line-height: 1.7;
             font-weight: 200; font-style: italic; color: #ddd;
-            background: rgba(255, 255, 255, 0.03); padding: 20px;
+            background: rgba(255, 255, 255, 0.05); padding: 18px;
             border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px); margin-bottom: 30px;
+            backdrop-filter: blur(8px); margin-bottom: 25px;
         }
 
-        /* --- Interactive Cake --- */
-        .cake-zone { position: relative; width: 120px; height: 120px; cursor: pointer; }
-        .cake-icon { font-size: 80px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+        /* --- Cake & Candle --- */
+        .cake-zone { position: relative; width: 100px; height: 100px; margin-bottom: 20px; }
+        .cake-icon { font-size: 75px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
         
         .candle-stick {
             position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 5px; height: 25px; background: #eee; border-radius: 2px;
+            width: 4px; height: 22px; background: #eee; border-radius: 2px;
         }
 
         .flame {
-            position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
-            width: 15px; height: 28px; background: radial-gradient(#fff, #ffcc00, #ff4d00);
+            position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+            width: 14px; height: 26px; background: radial-gradient(#fff, #ffcc00, #ff4d00);
             border-radius: 50% 50% 20% 20%;
             box-shadow: 0 0 20px #ffcc00, 0 0 40px #ff4d00;
             animation: flicker 0.1s infinite alternate;
         }
 
-        /* --- Butterflies --- */
+        /* --- Blow Button --- */
+        #blow-btn {
+            padding: 12px 25px; border-radius: 20px; border: none;
+            background: var(--pink); color: white; font-weight: bold;
+            font-size: 0.9rem; cursor: pointer; letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            transition: 0.3s;
+        }
+        #blow-btn:active { transform: scale(0.9); background: #e63958; }
+
+        /* --- Butterflies & Particles --- */
         .butterfly {
-            position: absolute; font-size: 25px; pointer-events: none; z-index: 5;
-            animation: fly 10s linear infinite;
+            position: absolute; font-size: 22px; pointer-events: none; z-index: 5;
+            animation: fly 12s linear infinite;
         }
 
         @keyframes fly {
-            0% { transform: translate(-10vw, 100vh) rotate(0deg); opacity: 0; }
+            0% { transform: translate(-15vw, 100vh) rotate(0deg); opacity: 0; }
             20% { opacity: 1; }
-            100% { transform: translate(110vw, -10vh) rotate(45deg); opacity: 0; }
+            100% { transform: translate(115vw, -15vh) rotate(45deg); opacity: 0; }
         }
 
         @keyframes flicker {
             0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
-            100% { transform: translateX(-50%) scale(1.1) rotate(1deg); }
+            100% { transform: translateX(-50%) scale(1.15) rotate(1deg); }
         }
 
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
         #wish-text {
             display: none; font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem; color: var(--gold); margin-top: 20px;
+            font-size: 2.5rem; color: var(--gold); margin-top: 15px;
+            text-shadow: 0 0 10px var(--gold);
             animation: zoomIn 1s ease forwards;
         }
 
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
 
-        .music-btn {
-            position: fixed; bottom: 25px; right: 25px; z-index: 100;
-            font-size: 24px; opacity: 0.5;
-        }
+        .music-indicator { position: fixed; bottom: 20px; right: 20px; font-size: 1.5rem; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -144,20 +152,21 @@
         <h1 class="name-title">Bhavna</h1>
         
         <div class="romantic-para">
-            "Bhavna, you are the most beautiful star in my galaxy. In a world full of noise, you are my sweetest melody. I am so lucky to have you by my side. May your day be as radiant as your smile. I love you forever." 💖
+            "Bhavna, in this galaxy of billions, my eyes will always search for you. You are my light, my peace, and my most beautiful reality. I promise to cherish you every single day. Happy Birthday, My Queen." 💖✨
         </div>
 
-        <div class="cake-zone" id="cakeTrigger">
+        <div class="cake-zone">
             <div class="flame" id="flame"></div>
             <div class="candle-stick"></div>
             <div class="cake-icon">🎂</div>
         </div>
         
-        <div id="wish-text">Make a Wish, My Love! ✨</div>
+        <button id="blow-btn" onclick="triggerBlast()">Blow The Candle 🌬️</button>
+        <div id="wish-text">I Love You Forever! ❤️</div>
     </div>
 
     <audio id="audio" loop><source src="aud.mp3" type="audio/mpeg"></audio>
-    <div class="music-btn">🎶</div>
+    <div class="music-indicator">🎶</div>
 
     <script>
         const canvas = document.getElementById('canvas');
@@ -181,7 +190,6 @@
                 document.getElementById('audio').play().catch(() => {});
                 initParticles();
                 animate();
-                startMic();
                 createButterflies();
             }, 1000);
         }
@@ -193,22 +201,26 @@
             }
             reset() {
                 this.x = Math.random() * w;
-                this.y = h + Math.random() * 200;
-                this.size = Math.random() * (this.isBlast ? 20 : 5) + 2;
-                this.speed = Math.random() * (this.isBlast ? 5 : 1) + 0.5;
-                this.type = Math.random() > 0.5 ? 'heart' : 'star';
-                this.opacity = Math.random() * 0.7 + 0.1;
+                this.y = h + Math.random() * (this.isBlast ? 800 : 200);
+                this.size = Math.random() * (this.isBlast ? 22 : 6) + 3;
+                this.speed = Math.random() * (this.isBlast ? 6 : 1.5) + 0.5;
+                this.type = Math.random() > 0.4 ? 'heart' : 'star';
+                this.opacity = Math.random() * 0.8 + 0.1;
+                this.color = this.type === 'heart' ? (this.isBlast ? '#ff003c' : '#ff4d6d') : '#ffffff';
             }
             update() {
                 this.y -= this.speed;
                 if (this.y < -50) {
-                    if (this.isBlast) this.y = h + 10;
-                    else this.reset();
+                    if (this.isBlast) {
+                        this.y = h + Math.random() * 200; // Keep the blast going
+                    } else {
+                        this.reset();
+                    }
                 }
             }
             draw() {
                 ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.type === 'heart' ? '#ff4d6d' : '#ffffff';
+                ctx.fillStyle = this.color;
                 if(this.type === 'heart') {
                     ctx.font = `${this.size}px Arial`;
                     ctx.fillText('❤️', this.x, this.y);
@@ -221,7 +233,22 @@
         }
 
         function initParticles() {
-            for(let i=0; i<70; i++) particles.push(new Particle(false));
+            for(let i=0; i<80; i++) particles.push(new Particle(false));
+        }
+
+        function triggerBlast() {
+            if (blown) return;
+            blown = true;
+            document.getElementById('flame').style.display = 'none';
+            document.getElementById('blow-btn').style.display = 'none';
+            document.getElementById('wish-text').style.display = 'block';
+            
+            // Mega Blast of 800 Hearts
+            for(let i=0; i<800; i++) {
+                setTimeout(() => {
+                    particles.push(new Particle(true));
+                }, i * 1.5);
+            }
         }
 
         function createButterflies() {
@@ -230,50 +257,16 @@
                 b.className = 'butterfly';
                 b.innerHTML = '🦋';
                 b.style.left = Math.random() * 100 + "vw";
-                b.style.animationDuration = (Math.random() * 5 + 8) + "s";
+                b.style.animationDuration = (Math.random() * 5 + 10) + "s";
                 document.body.appendChild(b);
                 setTimeout(() => b.remove(), 12000);
-            }, 3000);
+            }, 3500);
         }
 
         function animate() {
             ctx.clearRect(0, 0, w, h);
             particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
-        }
-
-        async function startMic() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const audioCtx = new AudioContext();
-                const analyzer = audioCtx.createAnalyser();
-                const source = audioCtx.createMediaStreamSource(stream);
-                analyzer.fftSize = 256;
-                source.connect(analyzer);
-                const data = new Uint8Array(analyzer.frequencyBinCount);
-
-                function check() {
-                    if (blown) return;
-                    analyzer.getByteFrequencyData(data);
-                    let vol = data.reduce((a, b) => a + b) / data.length;
-                    if (vol > 55) extinguish();
-                    requestAnimationFrame(check);
-                }
-                check();
-            } catch (e) {
-                // Click backup for iOS/Mobile if Mic is blocked
-                document.getElementById('cakeTrigger').onclick = extinguish;
-            }
-        }
-
-        function extinguish() {
-            if (blown) return;
-            blown = true;
-            document.getElementById('flame').style.display = 'none';
-            document.getElementById('wish-text').style.display = 'block';
-            for(let i=0; i<200; i++) {
-                setTimeout(() => particles.push(new Particle(true)), i * 2);
-            }
         }
     </script>
 </body>
